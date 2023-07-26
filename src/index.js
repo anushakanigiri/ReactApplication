@@ -1,17 +1,40 @@
 import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import ReactDOM from 'react-dom';
+import { Provider } from "react-redux";
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
+import store from "./store";
+
+import Header from './Components/Header';
+import Sidebar from './Components/Sidebar';
+import Footer from './Components/Footer';
+import FormInput from './Components/FormInput';
+import RegionInfo from './Components/RegionInfo';
+import OSMMap from './Components/OSMMap';
+
+const handleLoadRegion = (region) => {
+  // Implement your map loading logic here
+  console.log(`Loading map for ${region}`);
+};
+
+const App = () => {
+  const regions = ["United States", "India", "United Kingdom"];
+  return (
+    <div>
+      <Header />
+      <Sidebar />
+      <Footer />
+      <FormInput regions={regions} onLoadRegion={handleLoadRegion} />
+      <RegionInfo />
+      <OSMMap />
+    </div>
+  );
+};
+
+ReactDOM.render(
   <React.StrictMode>
-    <App />
-  </React.StrictMode>
+    <Provider store={store}>
+      <App />
+    </Provider>
+  </React.StrictMode>,
+  document.getElementById("root")
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
